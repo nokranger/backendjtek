@@ -89,6 +89,35 @@ app.post('/itdata', (req, res) => {
       console.log('done selected')
 })
 
+app.post('/dodata', (req, res) => {
+  console.log('DATA: ', req.body)
+  console.log('DATA: ', req.body.pallet)
+  connection.getConnection((err, con) => {
+      if (err) throw err
+      console.log("Connected!")
+      var sql = "INSERT INTO dodata (doNumber, doItem, doItem2, doKey, CustomerCode, CumtomerName, doDeliveryDate, CustomerReceivingDate, ItemNumber, NumberofBoxes, QtyBox, doQty, AccountNumber, BackNumber, Location, BearingNumber, subBearingNumber, SortKey, CustomerPartsNo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      var value = [req.body.doNumber, req.body.doItem, req.body.doItem2, req.body.doKey, req.body.CustomerCode, req.body.CumtomerName, req.body.doDeliveryDate, req.body.CustomerReceivingDate, req.body.ItemNumber, req.body.NumberofBoxes, req.body.QtyBox, req.body.doQty, req.body.AccountNumber, req.body.BackNumber, req.body.Location, req.body.BearingNumber, req.body.subBearingNumber, req.body.SortKey, req.body.CustomerPartsNo]
+      if (err) throw err
+      connection.query(sql, value, (err, result, fields) => {
+        console.log('sql queryplan')
+        console.log(result)
+        if (result.length > 0) {
+          console.log('status200')
+          res.status(200).json({
+            result: result
+          })
+        } else {
+          console.log('status404')
+          res.status(404).json({
+            err: err
+          })
+        } 
+      con.release()
+      })
+    })
+    console.log('done selected')
+})
+
 app.get('/getitdata', (req, res) => {
     connection.getConnection((err, con) => {
         if (err) throw err
@@ -102,6 +131,21 @@ app.get('/getitdata', (req, res) => {
         })
       })
       console.log('done selected')
+})
+
+app.get('/getdodata', (req, res) => {
+  connection.getConnection((err, con) => {
+      if (err) throw err
+      connection.query("SELECT * FROM dodata", (err, result, fields) => {
+        if (err) throw err
+        // console.log(result);
+        res.json({
+          result: result
+        })
+        con.release()
+      })
+    })
+    console.log('done selected')
 })
 
 app.get('/product', (req, res) => {
