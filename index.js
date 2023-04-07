@@ -66,8 +66,8 @@ app.post('/itdata', (req, res) => {
     connection.getConnection((err, con) => {
         if (err) throw err
         console.log("Connected!")
-        var sql = "INSERT INTO itdata (pallet, account, totalbox, invoice, qty, intransitqty, item, location) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        var value = [req.body.pallet, req.body.account, req.body.totalbox, req.body.invoice, req.body.qty, req.body.intransitqty, req.body.item, req.body.location]
+        var sql = "INSERT INTO itdata (pallet, account, totalbox, invoice, qty, intransitqty, item, location, sumitdata) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        var value = [req.body.pallet, req.body.account, req.body.totalbox, req.body.invoice, req.body.qty, req.body.intransitqty, req.body.item, req.body.location, req.body.sumitdata]
         if (err) throw err
         connection.query(sql, value, (err, result, fields) => {
           console.log('sql queryplan')
@@ -95,8 +95,8 @@ app.post('/dodata', (req, res) => {
   connection.getConnection((err, con) => {
       if (err) throw err
       console.log("Connected!")
-      var sql = "INSERT INTO dodata (doNumber, doItem, doItem2, doKey, CustomerCode, CumtomerName, doDeliveryDate, CustomerReceivingDate, ItemNumber, NumberofBoxes, QtyBox, doQty, AccountNumber, BackNumber, Location, BearingNumber, subBearingNumber, SortKey, CustomerPartsNo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-      var value = [req.body.doNumber, req.body.doItem, req.body.doItem2, req.body.doKey, req.body.CustomerCode, req.body.CumtomerName, req.body.doDeliveryDate, req.body.CustomerReceivingDate, req.body.ItemNumber, req.body.NumberofBoxes, req.body.QtyBox, req.body.doQty, req.body.AccountNumber, req.body.BackNumber, req.body.Location, req.body.BearingNumber, req.body.subBearingNumber, req.body.SortKey, req.body.CustomerPartsNo]
+      var sql = "INSERT INTO dodata (doNumber, doItem, doItem2, doKey, CustomerCode, CumtomerName, doDeliveryDate, CustomerReceivingDate, ItemNumber, NumberofBoxes, QtyBox, doQty, AccountNumber, BackNumber, Location, BearingNumber, subBearingNumber, SortKey, CustomerPartsNo, sumdodata) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+      var value = [req.body.doNumber, req.body.doItem, req.body.doItem2, req.body.doKey, req.body.CustomerCode, req.body.CumtomerName, req.body.doDeliveryDate, req.body.CustomerReceivingDate, req.body.ItemNumber, req.body.NumberofBoxes, req.body.QtyBox, req.body.doQty, req.body.AccountNumber, req.body.BackNumber, req.body.Location, req.body.BearingNumber, req.body.subBearingNumber, req.body.SortKey, req.body.CustomerPartsNo, req.body.sumdodata]
       if (err) throw err
       connection.query(sql, value, (err, result, fields) => {
         console.log('sql queryplan')
